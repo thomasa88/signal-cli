@@ -411,7 +411,7 @@ pub async fn connect_tcp(
 
 pub async fn connect_unix(
     socket_path: impl AsRef<Path>,
-) -> Result<impl SubscriptionClientT, std::io::Error> {
+) -> Result<jsonrpsee::async_client::Client, std::io::Error> {
     let (sender, receiver) = super::transports::ipc::connect(socket_path).await?;
 
     Ok(ClientBuilder::default().build_with_tokio(sender, receiver))
